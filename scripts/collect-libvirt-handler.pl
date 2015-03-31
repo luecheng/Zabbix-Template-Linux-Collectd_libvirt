@@ -17,27 +17,30 @@ use Collectd::Unixsock();
 	}
 
 	if( $command eq "GETVAL"){
-	    
-	    if( $val =~ /^instance-[0-9a-z]{8,8}-virt_cpu_total/ ){
-		@vals = split(/-/, $val);
-		$val = $vals[0] . "-" . $vals[1] . "/libvirt/" . $vals[2]	
+	    if( $val =~ /^.*-virt_cpu_total/ ){
+	    	#i-153-327-VM-virt_cpu_total
+				@vals = split(/-virt_cpu_total/, $val);
+				$val = $vals[0] . "/libvirt/virt_cpu_total"
 	    }
-	    elsif($val =~ /^instance-[0-9a-z]{8,8}-disk-/ and $val_type =~ /^OPS/){
-		@vals = split(/-/, $val);
-		    $val = $vals[0] . "-" . $vals[1] . "/libvirt/" . $vals[2] . "_ops-" .$vals[3]		    
-	    
+	    elsif( $val =~ /^.*-disk-/ ){
+	    	#i-153-327-VM-disk-vda
+				@vals = split(/-disk-/, $val);
+				if ($val_type =~ /^OPS/) {
+		    	$val = $vals[0] . "/libvirt/disk_ops-" . $vals[1]
+		    }
+		    elsif ($val_type =~ /^OCT/) {
+		    	$val = $vals[0] . "/libvirt/disk_octets-" . $vals[1]
+		    }   
 	    }
-	    elsif($val =~ /^instance-[0-9a-z]{8,8}-disk-/ and $val_type =~ /^OCT/){
-		@vals = split(/-/, $val);
-		    $val = $vals[0] . "-" . $vals[1] . "/libvirt/" . $vals[2] . "_octets-" .$vals[3]
-	    }
-	    elsif($val =~ /^instance-[0-9a-z]{8,8}-if-/ and $val_type =~ /^NET-PACKETS/){
-		@vals = split(/-/, $val);
-		    $val = $vals[0] . "-" . $vals[1] . "/libvirt/" . $vals[2] . "_packets-" .$vals[3]."-".$vals[4]
-	    }
-	    elsif($val =~ /^instance-[0-9a-z]{8,8}-if-/ and $val_type =~ /^NET-OCTETS/){
-		@vals = split(/-/, $val);
-		    $val = $vals[0] . "-" . $vals[1] . "/libvirt/" . $vals[2] . "_octets-" .$vals[3]."-".$vals[4]
+	    elsif( $val =~ /^.*-if-/ ){
+	    	#i-153-327-VM-if-vnet17
+				@vals = split(/-if-/, $val);
+				if ($val_type =~ /^NET-PACKETS/) {
+		    	$val = $vals[0] . "/libvirt/if_packets-" . $vals[1]
+		    }
+		    elsif ($val_type =~ /^NET-OCTETS/) {
+		    	$val = $vals[0] . "/libvirt/if_octets-" . $vals[1]
+		    }   
 	    }
 	    $command .= " " . $val;
 	    
@@ -47,15 +50,15 @@ use Collectd::Unixsock();
 
 	my $sock = Collectd::Unixsock->new($path);
 
-        my $cmds = {
-                HELP    => \&cmd_help,
-                PUTVAL  => \&putval,
-                GETVAL  => \&getval,
-                GETTHRESHOLD  => \&getthreshold,
-                FLUSH   => \&flush,
-                LISTVAL => \&listval,
-                PUTNOTIF => \&putnotif,
-        };
+  my $cmds = {
+          HELP    => \&cmd_help,
+          PUTVAL  => \&putval,
+          GETVAL  => \&getval,
+          GETTHRESHOLD  => \&getthreshold,
+          FLUSH   => \&flush,
+          LISTVAL => \&listval,
+          PUTNOTIF => \&putnotif,
+  };
 
 
 	if (! $sock) {
@@ -202,7 +205,7 @@ sub putidjson {
                 $string .= "-" . $ident->{'type_instance'};
         }
 
-	$stringjson = "\t\t{\n\t\t\t\"{#NAME}\":\"" . $string . "\"},\n";
+	$stringjson = "\t\t{\"{#NAME}\":\"" . $string . "\"},\n";
 
 	if( $val eq "ALL"){
     	    return $stringjson;
@@ -221,7 +224,7 @@ sub putidjson {
 sub listval {
 	my $sock = shift || return;
 	my $line = shift;
-
+	my $jsons;
 	my @res;
 
 	if ($line ne "") {
@@ -239,14 +242,16 @@ sub listval {
 #	foreach my $ident (@res) {
 #		print putidB($ident);
 #	}
-
-	print "{\n\t\"data\":[\n";
+  
+	print "{ \n\t\"data\":[\n";
 
 	foreach my $ident (@res) {
-		print putidjson($ident);
+#		print putidjson($ident);
+		$jsons .= putidjson($ident);
 	}
-
-	print "\t]\n}\n";
+	print substr $jsons ,0 ,-2;
+#	print "\t\t{\"{#NAME}\":\"" . "null\"}";
+	print "] \n}\n";
 
 	return 1;
 }
@@ -289,9 +294,8 @@ sub getval {
 		    print "0" .$/;
 		    return 1;
 		}
-#		else
+		else
 		{
-#            	    print STDERR "socket error: " . $sock->{'error'} . $/;
             	    print STDERR "socket error: " . $sock->{'error'} . $/;
 		    return;
                 }
@@ -302,73 +306,66 @@ sub getval {
 	    #debug
 	    #print $line[0] . "\n";
 
-	    if( $line[0] =~ /^instance-[0-9a-z]{8,8}\/libvirt\/virt_cpu_total/ ){
-                print "$vals->{$key}\n";
+	    if( $line[0] =~ /^.*\/libvirt\/virt_cpu_total/){
+      	print "$vals->{$key}\n";
 	    }
-	    elsif($line[0] =~ /^instance-[0-9a-z]{8,8}\/libvirt\/disk_ops/){
-	    
-		if($val_type eq "OPS-READ" and $key eq "read"){
-            	    print "$vals->{$key}\n";
-		}
-		elsif($val_type eq "OPS-WRITE" and $key eq "write"){
-            	    print "$vals->{$key}\n";
-		}
-		elsif($val_type eq "OPS"){
-                    print "\t$key: $vals->{$key}\n";
-		}
+	    elsif($line[0] =~ /^.*\/libvirt\/disk_ops/){
+				if($val_type eq "OPS-READ" and $key eq "read"){
+        	print "$vals->{$key}\n";
+				}
+				elsif($val_type eq "OPS-WRITE" and $key eq "write"){
+         	print "$vals->{$key}\n";
+				}
+				elsif($val_type eq "OPS"){
+        	print "\t$key: $vals->{$key}\n";
+				}
 	    }
-	    elsif($line[0] =~ /^instance-[0-9a-z]{8,8}\/libvirt\/disk_octets/){
-	    
-		#debug
-		#print "DEBUG: disk_octets options ..." . $/;
-		
-		if($val_type eq "OCT-READ" and $key eq "read"){
-            	    print "$vals->{$key}\n";
-		}
-		elsif($val_type eq "OCT-WRITE" and $key eq "write"){
-            	    print "$vals->{$key}\n";
-		}
-		elsif($val_type eq "OCT"){
-                    print "\t$key: $vals->{$key}\n";
-		}
-
+	    elsif($line[0] =~ /^.*\/libvirt\/disk_octets/){ 
+				#debug
+				#print "DEBUG: disk_octets options ..." . $/;
+				
+				if($val_type eq "OCT-READ" and $key eq "read"){
+		            	    print "$vals->{$key}\n";
+				}
+				elsif($val_type eq "OCT-WRITE" and $key eq "write"){
+		            	    print "$vals->{$key}\n";
+				}
+				elsif($val_type eq "OCT"){
+		                    print "\t$key: $vals->{$key}\n";
+				}
 	    }
-	    elsif($line[0] =~ /^instance-[0-9a-z]{8,8}\/libvirt\/if_packets/){
-
-		#debug
-		#print "DEBUG: if_packets options ..." . $/;
-		
-		if($val_type eq "NET-PACKETS-RX" and $key eq "rx"){
-            	    print "$vals->{$key}\n";
-		}
-		elsif($val_type eq "NET-PACKETS-TX" and $key eq "tx"){
-            	    print "$vals->{$key}\n";
-		}
-		elsif($val_type eq "NET-PACKETS"){
-                    print "\t$key: $vals->{$key}\n";
-		}
-		
+	    elsif($line[0] =~ /^.*\/libvirt\/if_packets/){
+				#debug
+				#print "DEBUG: if_packets options ..." . $/;
+				
+				if($val_type eq "NET-PACKETS-RX" and $key eq "rx"){
+		            	    print "$vals->{$key}\n";
+				}
+				elsif($val_type eq "NET-PACKETS-TX" and $key eq "tx"){
+		            	    print "$vals->{$key}\n";
+				}
+				elsif($val_type eq "NET-PACKETS"){
+		                    print "\t$key: $vals->{$key}\n";
+				}		
 	    }
-	    elsif($line[0] =~ /^instance-[0-9a-z]{8,8}\/libvirt\/if_octets/){
-
-		#debug
-		#print "DEBUG: if_octets options ..." . $/;
-		
-		if($val_type eq "NET-OCTETS-RX" and $key eq "rx"){
-            	    print "$vals->{$key}\n";
-		}
-		elsif($val_type eq "NET-OCTETS-TX" and $key eq "tx"){
-            	    print "$vals->{$key}\n";
-		}
-		elsif($val_type eq "NET-OCTETS"){
-                    print "\t$key: $vals->{$key}\n";
-		}
-		
+	    elsif($line[0] =~ /^.*\/libvirt\/if_octets/){
+				#debug
+				#print "DEBUG: if_octets options ..." . $/;
+				
+				if($val_type eq "NET-OCTETS-RX" and $key eq "rx"){
+		            	    print "$vals->{$key}\n";
+				}
+				elsif($val_type eq "NET-OCTETS-TX" and $key eq "tx"){
+		            	    print "$vals->{$key}\n";
+				}
+				elsif($val_type eq "NET-OCTETS"){
+		                    print "\t$key: $vals->{$key}\n";
+				}
 	    }
 	    else{
-                print "\t$key: $vals->{$key}\n";
+        print "\t$key: $vals->{$key}\n";
 	    }
-        }
-        return 1;
+   }
+   return 1;
 }
 
