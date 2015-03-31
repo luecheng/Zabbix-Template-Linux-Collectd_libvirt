@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>2.0</version>
-    <date>2014-07-14T12:33:00Z</date>
+    <date>2015-03-31T08:07:39Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -11,6 +11,7 @@
         <template>
             <template>Template_Linux_Collectd_libvirt</template>
             <name>Template_Linux_Collectd_libvirt</name>
+            <description/>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -41,9 +42,12 @@
                     <delay>86400</delay>
                     <status>0</status>
                     <allowed_hosts/>
+                    <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
                     <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
                     <delay_flex/>
                     <params/>
@@ -54,17 +58,21 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <filter>:</filter>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
                     <lifetime>7</lifetime>
                     <description>discovery disk items from guest instances, over collectd with enabled libvirt plugin</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - OCTETS READ</name>
+                            <name>Libvirt - {#NAME} - OCTETS READ</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.disk-oct-read[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.disk-oct-read[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -73,9 +81,12 @@
                             <allowed_hosts/>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -99,14 +110,15 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - OCTETS WRITE</name>
+                            <name>Libvirt - {#NAME} - OCTETS WRITE</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.disk-oct-write[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.disk-oct-write[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -115,9 +127,12 @@
                             <allowed_hosts/>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -138,14 +153,15 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - OPS READ</name>
+                            <name>Libvirt - {#NAME} - OPS READ</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.disk-ops-read[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.disk-ops-read[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -154,9 +170,12 @@
                             <allowed_hosts/>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -177,14 +196,15 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - OPS WRITE</name>
+                            <name>Libvirt - {#NAME} - OPS WRITE</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.disk-ops-write[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.disk-ops-write[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -193,9 +213,12 @@
                             <allowed_hosts/>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -216,12 +239,13 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes/>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - OCTETS R/W</name>
+                            <name>Libvirt - {#NAME} - OCTETS R/W</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -247,7 +271,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.disk-oct-read[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.disk-oct-read[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -259,13 +283,13 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.disk-oct-write[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.disk-oct-write[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - OPS R/W</name>
+                            <name>Libvirt - {#NAME} - OPS R/W</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -291,7 +315,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.disk-ops-read[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.disk-ops-read[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -303,12 +327,13 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.disk-ops-write[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.disk-ops-write[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                     </graph_prototypes>
+                    <host_prototypes/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>virt_cpu discovery</name>
@@ -319,9 +344,12 @@
                     <delay>86400</delay>
                     <status>0</status>
                     <allowed_hosts/>
+                    <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
                     <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
                     <delay_flex/>
                     <params/>
@@ -332,17 +360,21 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <filter>:</filter>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
                     <lifetime>7</lifetime>
                     <description>discovery virt_cpu_total from guest instances, over collectd with enabled libvirt plugin</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot;</name>
+                            <name>Libvirt - {#NAME}</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.cpu[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.cpu[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -351,9 +383,12 @@
                             <allowed_hosts/>
                             <units>ns</units>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -374,12 +409,13 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes/>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot;</name>
+                            <name>Libvirt - {#NAME}</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -405,12 +441,13 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.cpu[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.cpu[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                     </graph_prototypes>
+                    <host_prototypes/>
                 </discovery_rule>
                 <discovery_rule>
                     <name>virt_net_discovery</name>
@@ -421,9 +458,12 @@
                     <delay>86400</delay>
                     <status>0</status>
                     <allowed_hosts/>
+                    <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
                     <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
                     <delay_flex/>
                     <params/>
@@ -434,17 +474,21 @@
                     <publickey/>
                     <privatekey/>
                     <port/>
-                    <filter>:</filter>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
                     <lifetime>7</lifetime>
                     <description>discovery virt_net interfaces from guest instances, over collectd with enabled libvirt plugin</description>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - Octets RX</name>
+                            <name>Libvirt - {#NAME} - Octets RX</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.net-octets-rx[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.net-octets-rx[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -453,9 +497,12 @@
                             <allowed_hosts/>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -476,14 +523,15 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - Octets TX</name>
+                            <name>Libvirt - {#NAME} - Octets TX</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.net-octets-tx[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.net-octets-tx[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -492,9 +540,12 @@
                             <allowed_hosts/>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -515,14 +566,15 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - Packets RX</name>
+                            <name>Libvirt - {#NAME} - Packets RX</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.net-packets-rx[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.net-packets-rx[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -531,9 +583,12 @@
                             <allowed_hosts/>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -554,14 +609,15 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Libvirt - &quot;{#NAME}&quot; - Packets TX</name>
+                            <name>Libvirt - {#NAME} - Packets TX</name>
                             <type>0</type>
                             <snmp_community/>
                             <multiplier>0</multiplier>
                             <snmp_oid/>
-                            <key>collectd-libvirt.net-packets-tx[&quot;{#NAME}&quot;]</key>
+                            <key>collectd-libvirt.net-packets-tx[{#NAME}]</key>
                             <delay>60</delay>
                             <history>90</history>
                             <trends>365</trends>
@@ -570,9 +626,12 @@
                             <allowed_hosts/>
                             <units/>
                             <delta>0</delta>
+                            <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
                             <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
                             <formula>1</formula>
                             <delay_flex/>
@@ -593,12 +652,13 @@
                                 </application>
                             </applications>
                             <valuemap/>
+                            <logtimefmt/>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes/>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>Libvirt - NetStats - &quot;{#NAME}&quot;</name>
+                            <name>Libvirt - NetStats - {#NAME}</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -624,7 +684,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.net-octets-rx[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.net-octets-rx[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -636,7 +696,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.net-octets-tx[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.net-octets-tx[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -648,7 +708,7 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.net-packets-rx[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.net-packets-rx[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -660,12 +720,13 @@
                                     <type>0</type>
                                     <item>
                                         <host>Template_Linux_Collectd_libvirt</host>
-                                        <key>collectd-libvirt.net-packets-tx[&quot;{#NAME}&quot;]</key>
+                                        <key>collectd-libvirt.net-packets-tx[{#NAME}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                     </graph_prototypes>
+                    <host_prototypes/>
                 </discovery_rule>
             </discovery_rules>
             <macros/>
@@ -674,4 +735,3 @@
         </template>
     </templates>
 </zabbix_export>
-
